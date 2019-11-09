@@ -1,5 +1,6 @@
+package hawking
+
 import akka.actor.ActorSystem
-import akka.http.scaladsl.server.RequestContextImpl
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
@@ -9,22 +10,32 @@ import scala.io.StdIn
 import scala.util.{Failure, Success}
 
 object RoutingServer extends App {
-  implicit val system = ActorSystem("my-system")
+  implicit val system = ActorSystem("hawking-system")
   implicit val materializer = ActorMaterializer()
-  // needed for the future flatMap/onComplete in the end
   implicit val executionContext = system.dispatcher
 
   val route =
-    post {
-      path("addip") { entity(as[String]) { ipAddr =>
-        println(ipAddr)
-        val fToken: Future[Token] = Future(Token("1234"))
-        onComplete(fToken) {
-          case Success(token) => complete(token.value)
-          case Failure(_)     => failWith(new RuntimeException("Failed to create token"))
+    concat (
+      post {
+        path("addip") {
+          entity(as[String]) { ipAddr =>
+            val fToken: Future[Token] = PairingBroker.makePair(ipAddr)
+            onComplete(fToken) {
+              case Success(token) => complete(s"${token.value}")
+              case Failure(e) => failWith(e)
+            }
+          }
         }
-      }}
-    }
+      },
+      get {
+        pathPrefix("getip" / IntNumber) { token =>
+          onComplete(PairingBroker.getIp(Token(token))) {
+            case Success(ipaddr) => complete(ipaddr)
+            case Failure(e) => failWith(e)
+          }
+        }
+      }
+    )
 
   val bindingFuture = Http().bindAndHandle(route, "localhost", 7000)
 
