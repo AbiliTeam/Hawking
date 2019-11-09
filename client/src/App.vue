@@ -22,4 +22,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
+  body {
+      background: linear-gradient(to bottom, cornflowerblue, white) fixed;
+  }
 </style>
