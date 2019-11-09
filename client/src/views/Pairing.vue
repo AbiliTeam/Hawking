@@ -1,13 +1,23 @@
 <template>
     <div id="home">
-        testing
+        <label>INPUT</label>
+        <input type="text" id="fname" name="number" placeholder="4 digit number">
+        <input value="Pair">
     </div>
 </template>
 
 <script>
 export default {
-  name: "Home",
+  name: "Pairing",
   components: {
+      
+  },
+  data () {
+      return {
+          pin: null
+      }
+  },
+  methods: {
       
   }
 };
