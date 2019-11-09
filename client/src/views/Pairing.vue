@@ -1,8 +1,8 @@
 <template>
     <div id="home">
         <label>INPUT</label>
-        <input type="text" id="fname" name="number" placeholder="4 digit number">
-        <input value="Pair">
+        <input type="text" v-model="this.pin" name="number" placeholder="4 digit number">
+        <div>pin: {{this.pin}}</div>
     </div>
 </template>
 
