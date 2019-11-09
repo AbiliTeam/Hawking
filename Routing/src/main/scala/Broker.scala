@@ -1,19 +1,19 @@
 package hawking
 
-import RoutingServer.system
-
 import scala.util.Random
 import scala.collection.mutable.Map
 import scala.concurrent.Future
 
 object PairingBroker {
-  implicit val executionContext = system.dispatcher
+  import RoutingServer.executionContext
   private val ip2tok = Map[String, Token]()
   private val tok2ip = Map[Token, String]()
+  private var generator: List[Int] = Random.shuffle((1000 to 9999).toList)
 
   def makePair(ipAddr: String): Future[Token] = Future {
     ip2tok.getOrElse(ipAddr, {
-      val token = Token(Random.between(1000, 10000))
+      val token = Token(generator.head)
+      generator = generator.tail
       ip2tok += (ipAddr -> token)
       tok2ip += (token -> ipAddr)
       token
