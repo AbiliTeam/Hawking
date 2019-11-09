@@ -31,6 +31,8 @@ object RoutingServer extends App {
         pathPrefix("getip" / IntNumber) { token =>
           onComplete(PairingBroker.getIp(Token(token))) {
             case Success(ipaddr) => complete(ipaddr)
+            case Failure(_: NoSuchElementException)
+              => complete(422, s"No IP address matches token: $token")
             case Failure(e) => failWith(e)
           }
         }
