@@ -20,6 +20,7 @@ import sys.process._
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
+import scala.language.postfixOps
 
 trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val rotationRateFormat = jsonFormat3(RotationRate)
