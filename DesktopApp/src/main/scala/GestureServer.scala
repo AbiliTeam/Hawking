@@ -38,13 +38,13 @@ object RoutingServer extends App with JsonSupport {
   val localhost: InetAddress = InetAddress.getLocalHost
   val localIpAddress: String = localhost.getHostAddress
 
-  val fToken: Future[HttpResponse] =
+  lazy val fToken: Future[HttpResponse] =
     Http().singleRequest(HttpRequest(
       method = HttpMethods.POST,
       uri = s"$routingServerURI/addip",
       entity = HttpEntity(ContentTypes.`text/plain(UTF-8)`, localIpAddress)))
 
-  val token: Int =
+  lazy val token: Int =
     Await.result(fToken.flatMap(x => Unmarshal(x.entity).to[String]),
       Duration(10, TimeUnit.SECONDS)).toInt
 
@@ -67,6 +67,7 @@ object RoutingServer extends App with JsonSupport {
   val bindingFuture = Http().bindAndHandle(route, "localhost", 5000)
 
   println("Server online at http://localhost:7000/\nPress RETURN to stop...")
+  println(s"Your token is $token")
   StdIn.readLine() // let it run until user presses return
   bindingFuture
     .flatMap(_.unbind()) // trigger unbinding from the port
