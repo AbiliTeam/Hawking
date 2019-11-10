@@ -33,7 +33,7 @@ object RoutingServer extends App with JsonSupport {
   implicit val materializer = ActorMaterializer()
   implicit val executionContext = system.dispatcher
 
-  val routingServerURI = "http://[IP]:7000"
+  val routingServerURI = "http://localhost:7000"
 
   val localhost: InetAddress = InetAddress.getLocalHost
   val localIpAddress: String = localhost.getHostAddress
