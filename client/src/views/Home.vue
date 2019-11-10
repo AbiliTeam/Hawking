@@ -4,7 +4,7 @@
                 <h1>Hawking</h1>
                 <h2 id=""> Accessible Browser </h2>
                 <router-link :to="{name: 'Pair'}">
-                    <button onclick="Pair()" id="Pair"> Pair </button>
+                    <button id="Pair"> Pair </button>
                 </router-link>
             </div>
         </div>
