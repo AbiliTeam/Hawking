@@ -9,12 +9,14 @@ import scala.concurrent.Future
 import scala.io.StdIn
 import scala.util.{Failure, Success}
 
+import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
+
 object RoutingServer extends App {
   implicit val system = ActorSystem("hawking-system")
   implicit val materializer = ActorMaterializer()
   implicit val executionContext = system.dispatcher
 
-  val route =
+  val route = cors() {
     concat (
       post {
         path("addip") {
@@ -38,6 +40,7 @@ object RoutingServer extends App {
         }
       }
     )
+  }
 
   val bindingFuture = Http().bindAndHandle(route, "localhost", 7000)
 
