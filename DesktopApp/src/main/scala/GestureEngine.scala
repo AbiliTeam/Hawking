@@ -1,16 +1,13 @@
 package hawking.desktop
 
 import play.socketio.scaladsl.SocketIO
-import akka.stream.Materializer
+import akka.stream.{ClosedShape, Materializer}
 import akka.stream.scaladsl._
 import akka.NotUsed
 
 class MyEngine(socketIO: SocketIO)(implicit mat: Materializer) {
 
-  val chatFlow: Flow[String, String, NotUsed] = {
-    val (sink, source) = MergeHub.source[String].toMat(BroadcastHub.sink)(Keep.both).run()
-    Flow.fromSinkAndSourceCoupled(sink, source)
-  }
+  val mergedSources = Source.combine[HawkingEvent, NotUsed](flags, orientations, motions)(Merge(_))
 
   val controller = {
     socketIO.builder
