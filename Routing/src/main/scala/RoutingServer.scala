@@ -1,4 +1,4 @@
-package hawking
+package hawking.routing
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
