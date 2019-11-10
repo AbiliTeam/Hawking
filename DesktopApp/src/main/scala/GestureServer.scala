@@ -3,7 +3,8 @@ package hawking.gesture
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpMethods, HttpRequest}
+import akka.http.scaladsl.unmarshalling._
+import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
 
@@ -12,8 +13,12 @@ import scala.util.{Failure, Success}
 import spray.json._
 import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
 import java.net._
+import java.util.concurrent.TimeUnit
 
 import akka.http.scaladsl.unmarshalling.Unmarshal
+
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 
 trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val rotationRateFormat = jsonFormat3(RotationRate)
@@ -23,7 +28,7 @@ trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val eventFormat = jsonFormat4(Event)
 }
 
-object RoutingServer extends App {
+object RoutingServer extends App with JsonSupport {
   implicit val system = ActorSystem("hawking-system")
   implicit val materializer = ActorMaterializer()
   implicit val executionContext = system.dispatcher
@@ -33,14 +38,15 @@ object RoutingServer extends App {
   val localhost: InetAddress = InetAddress.getLocalHost
   val localIpAddress: String = localhost.getHostAddress
 
-  val token: Int = for {
-    response <- Http().singleRequest(HttpRequest(
-    method = HttpMethods.POST,
-    uri = s"$routingServerURI/addip",
-    entity = HttpEntity(ContentTypes.`text/plain(UTF-8)`, localIpAddress)))
-  } yield {
-    Unmarshal(response).to[Int]
-  }
+  val fToken: Future[HttpResponse] =
+    Http().singleRequest(HttpRequest(
+      method = HttpMethods.POST,
+      uri = s"$routingServerURI/addip",
+      entity = HttpEntity(ContentTypes.`text/plain(UTF-8)`, localIpAddress)))
+
+  val token: Int =
+    Await.result(fToken.flatMap(x => Unmarshal(x.entity).to[String]),
+      Duration(10, TimeUnit.SECONDS)).toInt
 
   val route = cors() {
     post {
