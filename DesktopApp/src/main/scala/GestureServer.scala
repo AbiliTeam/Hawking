@@ -16,6 +16,7 @@ import java.net._
 import java.util.concurrent.TimeUnit
 
 import akka.http.scaladsl.unmarshalling.Unmarshal
+import sys.process._
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
@@ -35,8 +36,8 @@ object RoutingServer extends App with JsonSupport {
 
   val routingServerURI = "http://[IP]:7000"
 
-  val localhost: InetAddress = InetAddress.getLocalHost
-  val localIpAddress: String = localhost.getHostAddress
+  val result = "hostname -I" !!
+  val localIpAddress: String = result.split(" ")(0)
 
   lazy val fToken: Future[HttpResponse] =
     Http().singleRequest(HttpRequest(
