@@ -1,0 +1,61 @@
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:5:5: not found: value Access-Control-Allow-Origin[0m
+[0m[[0m[31merror[0m] [0m[0m    `Access-Control-Allow-Origin`.*,[0m
+[0m[[0m[31merror[0m] [0m[0m    ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:6:5: not found: value Access-Control-Allow-Credentials[0m
+[0m[[0m[31merror[0m] [0m[0m    `Access-Control-Allow-Credentials`(true),[0m
+[0m[[0m[31merror[0m] [0m[0m    ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:7:5: not found: value Access-Control-Allow-Headers[0m
+[0m[[0m[31merror[0m] [0m[0m    `Access-Control-Allow-Headers`("Authorization",[0m
+[0m[[0m[31merror[0m] [0m[0m    ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:11:40: not found: type Directive0[0m
+[0m[[0m[31merror[0m] [0m[0m  private def addAccessControlHeaders: Directive0 = {[0m
+[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:12:5: not found: value respondWithHeaders[0m
+[0m[[0m[31merror[0m] [0m[0m    respondWithHeaders(corsResponseHeaders)[0m
+[0m[[0m[31merror[0m] [0m[0m    ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:15:40: not found: type Route[0m
+[0m[[0m[31merror[0m] [0m[0m  private def preflightRequestHandler: Route = options {[0m
+[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:15:48: not found: value options[0m
+[0m[[0m[31merror[0m] [0m[0m  private def preflightRequestHandler: Route = options {[0m
+[0m[[0m[31merror[0m] [0m[0m                                               ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:16:5: not found: value complete[0m
+[0m[[0m[31merror[0m] [0m[0m    complete(HttpResponse(StatusCodes.OK).[0m
+[0m[[0m[31merror[0m] [0m[0m    ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:16:14: not found: value HttpResponse[0m
+[0m[[0m[31merror[0m] [0m[0m    complete(HttpResponse(StatusCodes.OK).[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:16:27: not found: value StatusCodes[0m
+[0m[[0m[31merror[0m] [0m[0m    complete(HttpResponse(StatusCodes.OK).[0m
+[0m[[0m[31merror[0m] [0m[0m                          ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:17:19: not found: value Access-Control-Allow-Methods[0m
+[0m[[0m[31merror[0m] [0m[0m      withHeaders(`Access-Control-Allow-Methods`(OPTIONS, POST, PUT, GET, DELETE)))[0m
+[0m[[0m[31merror[0m] [0m[0m                  ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:17:50: not found: value OPTIONS[0m
+[0m[[0m[31merror[0m] [0m[0m      withHeaders(`Access-Control-Allow-Methods`(OPTIONS, POST, PUT, GET, DELETE)))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:17:59: not found: value POST[0m
+[0m[[0m[31merror[0m] [0m[0m      withHeaders(`Access-Control-Allow-Methods`(OPTIONS, POST, PUT, GET, DELETE)))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                          ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:17:65: not found: value PUT[0m
+[0m[[0m[31merror[0m] [0m[0m      withHeaders(`Access-Control-Allow-Methods`(OPTIONS, POST, PUT, GET, DELETE)))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:17:70: not found: value GET[0m
+[0m[[0m[31merror[0m] [0m[0m      withHeaders(`Access-Control-Allow-Methods`(OPTIONS, POST, PUT, GET, DELETE)))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                     ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:17:75: not found: value DELETE[0m
+[0m[[0m[31merror[0m] [0m[0m      withHeaders(`Access-Control-Allow-Methods`(OPTIONS, POST, PUT, GET, DELETE)))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                          ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:20:30: not found: type Route[0m
+[0m[[0m[31merror[0m] [0m[0m  def corsHandler(r: Route): Route = addAccessControlHeaders {[0m
+[0m[[0m[31merror[0m] [0m[0m                             ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:20:22: not found: type Route[0m
+[0m[[0m[31merror[0m] [0m[0m  def corsHandler(r: Route): Route = addAccessControlHeaders {[0m
+[0m[[0m[31merror[0m] [0m[0m                     ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:25:46: not found: type HttpResponse[0m
+[0m[[0m[31merror[0m] [0m[0m  def addCORSHeaders(response: HttpResponse):HttpResponse =[0m
+[0m[[0m[31merror[0m] [0m[0m                                             ^[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\Trevor\Hackathon\Hawking\Routing\src\main\scala\CORSHandler.scala:25:32: not found: type HttpResponse[0m
+[0m[[0m[31merror[0m] [0m[0m  def addCORSHeaders(response: HttpResponse):HttpResponse =[0m
+[0m[[0m[31merror[0m] [0m[0m                               ^[0m
+[0m[[0m[31merror[0m] [0m[0m20 errors found[0m
