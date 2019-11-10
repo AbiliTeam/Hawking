@@ -4,7 +4,7 @@
         <span>touches: {{ touches }}</span>
         <br/>
         <span>active: {{ active }}</span>
-        <div>props: {{ this.pin }}</div>
+        <div>props: {{ this.host }}</div>
         <canvas id="canvas" width="600" height="600">
             Your browser does not support canvas element.
         </canvas>
