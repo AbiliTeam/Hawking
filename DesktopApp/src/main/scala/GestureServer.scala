@@ -34,7 +34,7 @@ object RoutingServer extends App with JsonSupport {
   implicit val materializer = ActorMaterializer()
   implicit val executionContext = system.dispatcher
 
-  val routingServerURI = "http://[IP]:7000"
+  val routingServerURI = "http://localhost:7000"
 
   val result = "hostname -I" !!
   val localIpAddress: String = result.split(" ")(0)
@@ -67,7 +67,7 @@ object RoutingServer extends App with JsonSupport {
 
   val bindingFuture = Http().bindAndHandle(route, "localhost", 5000)
 
-  println("Server online at http://localhost:7000/\nPress RETURN to stop...")
+  println("Server online at http://localhost:5000/\nPress RETURN to stop...")
   println(s"Your token is $token")
   StdIn.readLine() // let it run until user presses return
   bindingFuture
