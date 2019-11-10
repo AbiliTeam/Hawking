@@ -66,7 +66,7 @@ object RoutingServer extends App with JsonSupport {
 
   val bindingFuture = Http().bindAndHandle(route, "localhost", 5000)
 
-  println("Server online at http://localhost:7000/\nPress RETURN to stop...")
+  println("Server online at http://localhost:5000/\nPress RETURN to stop...")
   println(s"Your token is $token")
   StdIn.readLine() // let it run until user presses return
   bindingFuture
