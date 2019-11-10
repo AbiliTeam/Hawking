@@ -1,3 +1,5 @@
+package hawking.desktop
+
 import play.api.libs.json._
 import play.socketio.scaladsl.SocketIOEventCodec._
 
@@ -39,8 +41,14 @@ object Interval {
   implicit val format: Format[Orientation] = Json.format
 }
 
-val decoder = decodeByName {
-  case "flag" => decodeJson[Flag]
-  case "orientation event" => decodeJson[Orientation]
-  case "motion event" => decodeJson[Motion]
+object Codec {
+  val decoder = decodeByName {
+    case "flag" => decodeJson[Flag]
+    case "orientation event" => decodeJson[Orientation]
+    case "motion event" => decodeJson[Motion]
+  }
+
+  val encoder = encodeByType {
+    case _ => throw new RuntimeException("Should never encode")
+  }
 }
