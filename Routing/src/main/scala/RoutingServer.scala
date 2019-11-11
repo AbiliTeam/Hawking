@@ -1,4 +1,4 @@
-package hawking
+package hawking.routing
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
@@ -32,7 +32,7 @@ object RoutingServer extends App {
       get {
         pathPrefix("getip" / IntNumber) { token =>
           onComplete(PairingBroker.getIp(Token(token))) {
-            case Success(ipaddr) => complete(ipaddr)
+            case Success(ipaddr) => complete(s"$ipaddr:5000")
             case Failure(_: NoSuchElementException)
               => complete(422, s"No IP address matches token: $token")
             case Failure(e) => failWith(e)
