@@ -1,4 +1,4 @@
-package hawking.routing
+package hawking
 
 import scala.util.Random
 import scala.collection.mutable.Map

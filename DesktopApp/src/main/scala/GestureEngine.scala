@@ -1,36 +1,16 @@
-package hawking.gesture
+package hawking.desktop
 
-import akka.actor.ActorSystem
+import play.socketio.scaladsl.SocketIO
+import akka.stream.{ClosedShape, Materializer}
+import akka.stream.scaladsl._
+import akka.NotUsed
 
-import scala.concurrent.Future
+class MyEngine(socketIO: SocketIO)(implicit mat: Materializer) {
 
-object GestureEngine {
-  implicit val system = ActorSystem("hawking-system")
-  implicit val executionContext = system.dispatcher
+  val mergedSources = Source.combine[HawkingEvent, NotUsed](flags, orientations, motions)(Merge(_))
 
-  def run(event: Event): Future[Unit] = Future {
-    val totMotion = event.motionEvents.reduce{ (acc, cur) =>
-      Motion(
-        Acceleration(
-          acc.acceleration.x + cur.acceleration.x,
-          acc.acceleration.y + cur.acceleration.y,
-          acc.acceleration.z + cur.acceleration.z
-        ), RotationRate(
-          acc.rotationRate.alpha + cur.rotationRate.alpha,
-          acc.rotationRate.beta + cur.rotationRate.beta,
-          acc.rotationRate.gamma + cur.rotationRate.gamma
-        ))}
-    val motionsLength = event.motionEvents.length
-    val avgMotion = Motion(
-      Acceleration(
-        totMotion.acceleration.x / motionsLength,
-        totMotion.acceleration.y / motionsLength,
-        totMotion.acceleration.z / motionsLength
-      ),
-      RotationRate(
-        totMotion.rotationRate.alpha / motionsLength,
-        totMotion.rotationRate.beta / motionsLength,
-        totMotion.rotationRate.gamma / motionsLength,
-      ))
+  val controller = {
+    socketIO.builder
+      .defaultNamespace(Codec.decoder, Codec.encoder)
   }
 }
