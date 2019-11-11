@@ -15,15 +15,18 @@ export default {
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  color: #343E3D;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: #4CBA5E;
 }
 
   body {
-      background: linear-gradient(to bottom, cornflowerblue, white) fixed;
+    background-color: #4CBA5E;
   }
+
 </style>
