@@ -1,8 +1,11 @@
 <template>
     <div id="pairing">
+        <router-link :to="{name: 'Home'}">
+            <div id="back-button"><img src='../assets/left-arrow.png' alt="Back"></div>
+        </router-link>
         <label>Enter your 4-digit PIN: </label>
         <input v-model="pin" name="number" id="txt" placeholder="">
-        <button id="pairingButton" @click="getClientIP()">Pair</button>
+        <button id="pairing-button" @click="getClientIP()">Pair</button>
         <div id="error-div">
             <h3 v-if="invalidPin">There is no valid session with that PIN. Please try again.</h3>
         </div>
@@ -35,8 +38,8 @@
                         /* eslint-disable no-console */
                         console.log(error)
                         /* eslint-enable no-console */
-                        this.pin = ""
-                        this.invalidPin = true
+                        this.pin = "";
+                        this.invalidPin = true;
                     })
             }
         }
@@ -50,6 +53,7 @@
         align-items: center;
         justify-content: center;
         height: 100vh;
+        position: relative;
     }
     #txt {
         font-size: 5.5vh;
@@ -63,7 +67,7 @@
         margin-left: 2vw;
         margin-right: 2vw;
     }
-    #pairingButton {
+    #pairing-button {
         height: 7vh;
         width: 8rem;
         color: white;
@@ -73,7 +77,7 @@
         border-style: none;
         border-radius: 8px;
     }
-    #pairingButton:active {
+    #pairing-button:active {
         transform: translate(0px, 5px);
         -webkit-transform: translate(0px, 5px);
         border-bottom: 1px solid;
@@ -84,4 +88,12 @@
         margin-top: 10vh;
         position: absolute;
     }
+    #back-button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        float: left;
+        margin-left: 2px;
+    }
+
 </style>
