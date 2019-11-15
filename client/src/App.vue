@@ -26,4 +26,7 @@
   body {
     background-color: #4CBA5E;
   }
+  h3 {
+    font-size: 5vw;
+  }
 </style>
