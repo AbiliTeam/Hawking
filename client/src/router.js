@@ -6,6 +6,7 @@ import Home from './views/Home.vue'
 import Motion from './views/Motion.vue'
 import Pairing from './views/Pairing.vue'
 import Remote from './views/Remote.vue'
+import Test from './views/Test.vue'
 
 export default new VueRouter({
     routes: [
@@ -29,6 +30,11 @@ export default new VueRouter({
             name: 'Remote',
             component: Remote,
             props: true
+        },
+        {
+            path: "/test",
+            name: 'Test',
+            component: Test
         }
     ]
 })

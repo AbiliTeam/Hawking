@@ -1,15 +1,8 @@
 <template>
     <div id="pairing">
-        <router-link :to="{name: 'Home'}">
-            <div id="back-button"><img src='../assets/left-arrow.png' alt="Back"></div>
-        </router-link>
-        <div id="pin-label">
-            <label>Enter your 4-digit PIN: </label>
-        </div>
-        <div id="input-and-button">
-            <input v-model="pin" name="number" id="pin-input" placeholder="">
-            <button id="pairing-button" @click="getClientIP()">Pair</button>
-        </div>
+        <label>Enter your 4-digit PIN: </label>
+        <input v-model="pin" name="number" id="txt" placeholder="4 digit number">
+        <button id="pairingButton" @click="connectRemote()">Pair</button>
         <div id="error-div">
             <h3 v-if="invalidPin">There is no valid session with that PIN. Please try again.</h3>
         </div>
@@ -17,37 +10,73 @@
 </template>
 
 <script>
-    import router from '../router'
-    export default {
-        name: "Pairing",
-        components: {},
-        data() {
-            return {
-                pin: "",
-                invalidPin: false
-            }
-        },
-        methods: {
-            getClientIP() {
-                this.$http.get('/getip/' + this.pin)
-                    .then((response) => {
-                        if (response.status == 200) {
-                            /* eslint-disable no-console */
-                            console.log(response.data)
-                            /* eslint-enable no-console */
-                            router.push({name: 'Remote', params: {host: response.data, pin: this.pin}})
-                        }
-                    })
-                    .catch((error) => {
-                        /* eslint-disable no-console */
-                        console.log(error)
-                        /* eslint-enable no-console */
-                        this.pin = "";
-                        this.invalidPin = true;
-                    })
-            }
-        }
-    };
+import io from 'socket.io-client'
+import router from '../router'
+
+export default {
+  name: "Pairing",
+  components: {
+      
+  },
+  data () {
+      return {
+          pin: "",
+          invalidPin: false,
+          socket: null
+      }
+  },
+    mounted: function () {
+      //this.initializeSocket();
+  },
+  methods: {
+      initializeSocket: function () {
+          this.socket = io('http://localhost:8000')
+          this.socket.on('connect', () => {
+                this.socket.on('successfulPairing', function (data) {
+                    router.push({ name: 'Remote', params: { pin: data.pin, socket: this.socket } })
+                })
+          })
+      },
+      connectRemote: function() {
+          this.$http.post('/validsession/', {
+              pin: this.pin
+          })
+          .then((response) => {
+              if (response.status == 200) {
+                  router.push({ name: 'Remote', params: { pin: parseInt(this.pin) } })
+              } else {
+                  this.pin = ""
+                  this.invalidPin = true
+              }
+          })
+          .catch((error) => {
+              /* eslint-disable no-console */
+              console.log(error)
+              /* eslint-enable no-console */
+              this.pin = ""
+              this.invalidPin = true
+          })
+      },
+      getClientIP() {
+          this.$http.get('/getip/' + this.pin)
+          .then((response) => {
+              if (response.status == 200) {
+                  /* eslint-disable no-console */
+                  console.log(response.data)
+                  /* eslint-enable no-console */
+                  router.push({ name: 'Remote', params: { pin: this.pin, socket: this.$socket } })
+              }
+          })
+          .catch((error) => {
+              /* eslint-disable no-console */
+              console.log(error)
+              /* eslint-enable no-console */
+              this.pin = ""
+              this.invalidPin = true
+          })
+      }
+  }
+};
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
