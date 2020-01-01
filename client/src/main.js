@@ -6,7 +6,9 @@ import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
 
 Vue.prototype.$http = axios.create({
-  baseURL: process.env.ROUTING_SERVER + ':' + process.env.AJAX_PORT + '/',
+  baseURL: 'http://167.99.115.44/'
+  //process.env.ROUTING_SERVER + ':' + process.env.AJAX_PORT + '/',
+  ,
   headers: {'Access-Control-Allow-Origin': '*'}
 })
 

@@ -16,7 +16,6 @@
 
 <script>
 import io from 'socket.io-client'
-import axios from 'axios'
 
 export default {
   name: "Remote",
@@ -26,10 +25,6 @@ export default {
   mounted: function () {
       this.initializeSocket();
       this.initializeListeners();
-      /* eslint-disable no-console */
-      console.log(this.$props.hostIP)
-      console.log(this.$props.pin)
-      /* eslint-enable no-console */
   },
   props: {
       pin: Number
@@ -38,7 +33,6 @@ export default {
       return {
           socket: null,
           active: false,
-          touches: 0,
           connectedToHost: false,
           saveEndOrientation: false,
           timeInterval: 0,
@@ -52,7 +46,8 @@ export default {
   },
   methods: {
       initializeSocket: function () {
-          this.socket = io(process.env.ROUTING_SERVER + '/socket')
+          this.socket = io('http://167.99.115.44:8000')
+          //io(process.env.ROUTING_SERVER + '/socket')
           //io('http://localhost:8000')
           this.socket.on('connect', () => {
               this.socket.emit('connectRemote', {
@@ -107,27 +102,7 @@ export default {
               endOrientation: this.endOrientation,
               motionEvents: this.motionEvents
           })
-          
-          axios.post(this.host + '/gesturedata/' + this.pin, {
-              'timeInterval': this.timeInterval,
-              'startOrientation': this.startOrientation,
-              'endOrientation': this.endOrientation,
-              'motionEvents': this.motionEvents
-          })
-          .then((response) => {
-              if (response.status == 200) {
-                  this.intervalStart = 0
-                  this.startOrientation = null
-                  this.endOrientation = null
-                  this.motionEvents = []
-              }
-          })
-          .catch((error) => {
-              /* eslint-disable no-console */
-              console.log(error)
-              /* eslint-enable no-console */
-          })
-      },
+         },
       /*
       handleCancel: function (event) {
 

@@ -44,8 +44,6 @@ export default {
         this.accelX = event.acceleration.x
         this.accelY = event.acceleration.y
         this.accelZ = event.acceleration.z
-
-        
     }
 
 
